@@ -3,7 +3,7 @@
     public interface IRepositorio <T> where T : EntidadeBase<T>
     {
         public void CadastrarRegistro(T novoRegistro);
-        public void EditarRegistro(int id, T registroAtualizado);
+        public bool EditarRegistro(int id, T registroAtualizado);
         public bool ExcluirRegistro(int id);
 
         public List<T> SelecionarRegistros();
