@@ -32,7 +32,7 @@ public class ControladorEquipamento : Controller
     }
 
     [HttpPost("cadastrar")]
-    public IActionResult Cadastrar(CadastrarEquipmentViewModel cadastrarVM)
+    public IActionResult Cadastrar(CadastrarEquipamentoViewModel cadastrarVM)
     {
         var fabricantes = repositorioFabricante.SelecionarRegistros();
 
