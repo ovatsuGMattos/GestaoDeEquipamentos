@@ -33,6 +33,10 @@ public class SelecionarFabricanteViewModel
 
 public class CadastrarEquipamentoViewModel : FormularioEquipamentoViewModel
 {
+    public CadastrarEquipamentoViewModel()
+    {
+
+    }
 
     public CadastrarEquipamentoViewModel(List<Fabricante> fabricantes)
     {
@@ -49,10 +53,7 @@ public class EditarEquipamentoViewModel : FormularioEquipamentoViewModel
 {
     public int Id { get; set; }
 
-    public EditarEquipamentoViewModel() 
-    { 
-
-    }
+    public EditarEquipamentoViewModel() { }
 
     public EditarEquipamentoViewModel(
         int id,
