@@ -31,8 +31,4 @@
     <None Include="Views\ControladorChamado\Visualizar.cshtml" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ModuloFabricante\Html\" />
-  </ItemGroup>
-
 </Project>
