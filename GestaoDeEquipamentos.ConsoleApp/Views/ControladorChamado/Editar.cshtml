@@ -40,7 +40,7 @@
         <select name="EquipamentoId" id="EquipamentoId">
             @foreach (var equipamento in Model.EquipamentosDisponiveis)
             {
-            <option value="@equipamento.Id" @(equipamento.Id= =Model.EquipamentoId ? "selected" : "" )>@equipamento.Nome</option>
+                <option value="@equipamento.Id" @(equipamento.Id == Model.EquipamentoId ? "selected" : "")>@equipamento.Nome</option>
             }
         </select>
 

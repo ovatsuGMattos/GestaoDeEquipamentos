@@ -24,10 +24,10 @@
     <ul>
         @foreach (var e in Model.Registros)
         {
-        <li>
-            @e.ToString() / <a href="/chamados/editar/@e.Id">Editar</a> /
-            <a href="/chamados/excluir/@e.Id">Excluir</a>
-        </li>
+            <li>
+                @e.ToString() / <a href="/chamados/editar/@e.Id">Editar</a> /
+                <a href="/chamados/excluir/@e.Id">Excluir</a>
+            </li>
         }
     </ul>
 </body>

@@ -1,13 +1,13 @@
 ﻿@using GestaoDeEquipamentos.ConsoleApp.Models
 @using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
 
-@model ExcluirFabricanteViewModel;
+@model VisualizarFabricantesViewModel;
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>Exclusão de Fabricante - Gestão de Equipamentos</title>
+    <title>Visualização de Fabricantes - Gestão de Equipamentos</title>
 </head>
 
 <body>
@@ -17,17 +17,19 @@
 
     <a href="/">Página Inicial</a> /
     <a href="/fabricantes/cadastrar">Cadastrar Novo Fabricante</a> /
-    <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
 
     <hr />
 
-    <h3>Exclusão de Fabricante</h3>
+    <h3>Visualização de Fabricantes</h3>
 
-    <p>Você tem certeza que deseja excluir o registro "@Model.Nome"?</p>
-
-    <form action="/fabricantes/excluir/@Model.Id" method="post">
-        <button type="submit">Confirmar</button>
-        <a href="/fabricantes/visualizar">Voltar</a>
-    </form>
+    <ul>
+        @foreach (DetalhesFabricanteViewModel f in Model.Registros)
+        {
+            <li>
+                @f.ToString() / <a href="/fabricantes/editar/@f.Id">Editar</a> /
+                <a href="/fabricantes/excluir/@f.Id">Excluir</a>
+            </li>
+        }
+    </ul>
 </body>
 </html>

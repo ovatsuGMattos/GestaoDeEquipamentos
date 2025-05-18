@@ -12,16 +12,7 @@
     <Content Remove="Views\ControladorChamado\Editar.cshtml" />
     <Content Remove="Views\ControladorChamado\Excluir.cshtml" />
     <Content Remove="Views\ControladorChamado\Visualizar.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Views\Shared\Notificacao.html" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Views\Shared\Notificacao.html">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Content Remove="Views\Shared\PaginaInicial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -29,6 +20,13 @@
     <None Include="Views\ControladorChamado\Editar.cshtml" />
     <None Include="Views\ControladorChamado\Excluir.cshtml" />
     <None Include="Views\ControladorChamado\Visualizar.cshtml" />
+    <None Include="Views\Shared\PaginaInicial.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="Views\Shared\Notificacao.cshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>
