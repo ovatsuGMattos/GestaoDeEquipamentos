@@ -1,47 +1,30 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
-namespace GestaoDeEquipamentos.ConsoleApp;
-
-class Program
+static void Main(string[] args)
 {
-    static void Main(string[] args)
-    {
-        // criar um servidor web
-        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-        builder.Services.AddControllersWithViews();
+    WebApplication app = builder.Build();
 
-        WebApplication app = builder.Build();
+    ContextoDados contextoDados = new ContextoDados(true);
+    IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
 
-        app.MapGet("/", PaginaInicial);
+    if (repositorioFabricante.SelecionarRegistros().Count < 1)
+        repositorioFabricante.CadastrarRegistro(new Fabricante("Dell", "contato@dell.com", "21 3222-3322"));
 
-        //app.MapGet("fabricantes/visualizar", VisualizarFabricantes);
-       
-        app.Run();
-    }
+    app.MapGet("/", PaginaInicial);
 
-    static Task PaginaInicial(HttpContext context)
-    {
-        string conteudo = File.ReadAllText("Html/PaginaInicial.html");
-        return context.Response.WriteAsync(conteudo);
-    }
+    app.MapGet("/fabricantes/cadastrar", FormularioCadastrarFabricante);
+    app.MapPost("/fabricantes/cadastrar", CadastrarFabricante);
 
-    //static Task VisualizarFabricantes(HttpContext context)
-    //{
-    //    ContextoDados contextoDados = new ContextoDados(true);
-    //    IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+    app.MapGet("/fabricantes/editar/{id:int}", FormularioEditarFabricante);
+    app.MapPost("/fabricantes/editar/{id:int}", EditarFabricante);
 
-    //    string conteudo = File.ReadAllText("ModuloFabricante/Html/Visualizar.html");
+    app.MapGet("/fabricantes/excluir/{id:int}", FormularioExcluirFabricante);
+    app.MapPost("/fabricantes/excluir/{id:int}", ExcluirFabricante);
 
-    //    StringBuilder stringBuilder = new StringBuilder(contextoDados)
+    app.MapGet("/fabricantes/visualizar", VisualizarFabricantes);
 
-    //    foreach (fabricante f in repositorioFabricante.SelecionarRegistro())
-    //    {
-    //        string itemLista = $"<li>{f.ToString()}</li> #fabricante#";
-    //        stringBuilder.Replace("#fabricante#", itemLista);
-    //    }
-
-
-    //}
+    app.Run();
 }
