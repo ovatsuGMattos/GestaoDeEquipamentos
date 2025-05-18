@@ -170,7 +170,7 @@ public class TelaEquipamento : TelaBase<Equipamento>, ITelaCrud
     public override Equipamento ObterDados()
     {
         Console.Write("Digite o nome do equipamento: ");
-        string nome = Console.ReadLine();
+        string nome = Console.ReadLine()??string.Empty;
 
         Console.Write("Digite o preço de aquisição R$ ");
         decimal precoAquisicao = Convert.ToDecimal(Console.ReadLine());
