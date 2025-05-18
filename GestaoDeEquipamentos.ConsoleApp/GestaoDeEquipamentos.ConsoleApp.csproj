@@ -8,13 +8,31 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Compartilhado\Html\Notificacao.html" />
+    <Content Remove="Views\ControladorChamado\Cadastrar.cshtml" />
+    <Content Remove="Views\ControladorChamado\Editar.cshtml" />
+    <Content Remove="Views\ControladorChamado\Excluir.cshtml" />
+    <Content Remove="Views\ControladorChamado\Visualizar.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Compartilhado\Html\Notificacao.html">
+    <None Remove="Views\Shared\Notificacao.html" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Views\Shared\Notificacao.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\ControladorChamado\Cadastrar.cshtml" />
+    <None Include="Views\ControladorChamado\Editar.cshtml" />
+    <None Include="Views\ControladorChamado\Excluir.cshtml" />
+    <None Include="Views\ControladorChamado\Visualizar.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ModuloFabricante\Html\" />
   </ItemGroup>
 
 </Project>

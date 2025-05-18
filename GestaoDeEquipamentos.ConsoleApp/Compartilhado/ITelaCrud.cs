@@ -1,11 +1,10 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado
+﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+
+public interface ITelaCrud
 {
-    public interface ITelaCrud
-    {
-        char ApresentarMenu();
-        void CadastrarRegistro();
-        void EditarRegistro();
-        void ExcluirRegistro();
-        void VisualizarRegistros(bool exibirCabecalho);
-    }
+    char ApresentarMenu();
+    void CadastrarRegistro();
+    void EditarRegistro();
+    void ExcluirRegistro();
+    void VisualizarRegistros(bool exibirCabecalho);
 }

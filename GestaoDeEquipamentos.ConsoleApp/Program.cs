@@ -1,30 +1,24 @@
-﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
-using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
+﻿namespace GestaoDeEquipamentos.ConsoleApp;
 
-static void Main(string[] args)
+class Program
 {
-    WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+    static void Main(string[] args)
+    {
+        // Instancia o construtor do servidor...
+        // ...configura as dependências internas (controladores e serviços) e externas (repositórios)
+        WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
-    WebApplication app = builder.Build();
+        builder.Services.AddControllersWithViews();
 
-    ContextoDados contextoDados = new ContextoDados(true);
-    IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+        // Constroi a instância do servidor...
+        // ...configura os middlewares executados durante requisições
+        WebApplication app = builder.Build();
 
-    if (repositorioFabricante.SelecionarRegistros().Count < 1)
-        repositorioFabricante.CadastrarRegistro(new Fabricante("Dell", "contato@dell.com", "21 3222-3322"));
+        // Mapeia controladores e rotas que serão gerenciadas pelo servidor
+        app.UseRouting();
+        app.MapControllers();
 
-    app.MapGet("/", PaginaInicial);
-
-    app.MapGet("/fabricantes/cadastrar", FormularioCadastrarFabricante);
-    app.MapPost("/fabricantes/cadastrar", CadastrarFabricante);
-
-    app.MapGet("/fabricantes/editar/{id:int}", FormularioEditarFabricante);
-    app.MapPost("/fabricantes/editar/{id:int}", EditarFabricante);
-
-    app.MapGet("/fabricantes/excluir/{id:int}", FormularioExcluirFabricante);
-    app.MapPost("/fabricantes/excluir/{id:int}", ExcluirFabricante);
-
-    app.MapGet("/fabricantes/visualizar", VisualizarFabricantes);
-
-    app.Run();
+        // Inicia o loop do servidor web, escuta por requisições na porta especificada
+        app.Run();
+    }
 }

@@ -1,13 +1,14 @@
-﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado
+﻿namespace GestaoDeEquipamentos.ConsoleApp.Compartilhado;
+
+public interface IRepositorio<T> where T : EntidadeBase<T>
 {
-    public interface IRepositorio <T> where T : EntidadeBase<T>
-    {
-        public void CadastrarRegistro(T novoRegistro);
-        public bool EditarRegistro(int id, T registroAtualizado);
-        public bool ExcluirRegistro(int id);
+    public void CadastrarRegistro(T novoRegistro);
 
-        public List<T> SelecionarRegistros();
+    public bool EditarRegistro(int idRegistro, T registroEditado);
 
-        public T SelecionarRegistroPorId(int idRegistro);
-    }
+    public bool ExcluirRegistro(int idRegistro);
+
+    public List<T> SelecionarRegistros();
+
+    public T SelecionarRegistroPorId(int idRegistro);
 }
