@@ -1,44 +1,163 @@
 ﻿<!DOCTYPE html>
-<html>
-<!--Contém metadados (dados sobre os dados) da página HTML-->
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Gestão de Equipamentos</title>
+    <title>Gestão De Equipamentos</title>
+
+    <style>
+        :root {
+            --fundo-secundario: #2c2c2e;
+            --fundo-principal: #1e1e1e;
+            --cor-borda: #3a3a3c;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fundo-principal);
+            color: green;
+            font-family: 'Segoe UI';
+        }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 200px;
+            background-color: var(--fundo-secundario);
+            border: 1px solid var(--cor-borda);
+        }
+
+            nav > h2 {
+                margin: 0;
+            }
+
+            nav > ul {
+                flex-wrap: wrap;
+                gap: 30px;
+                list-style: none;
+                padding-left: 0;
+                justify-content: center;
+            }
+
+        .link-navegacao {
+            color: green;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 18px;
+        }
+
+            .link-navegacao:hover {
+                color: lawngreen;
+            }
+
+        header {
+            padding: 0 200px;
+        }
+
+        main {
+            padding: 0 200px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            color: green;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+            background-color: #3a3a3c;
+        }
+
+
+        .card {
+            border: 1px solid var(--cor-borda);
+            border-radius: 9px;
+            padding: 0 30px;
+            min-width: 350px;
+            height: 150px;
+            background-color: var(--fundo-secundario);
+            transition: transform 0.3s ease, background-color 0.2s ease;
+        }
+
+            .card h3 {
+                color: green;
+            }
+
+        a {
+            text-decoration: none;
+            color: green;
+        }
+
+        @@media (max-width: 768px) {
+            nav {
+                padding: 20px;
+                justify-content: center;
+            }
+
+            header {
+                padding: 20px;
+            }
+
+            main {
+                padding: 20px;
+            }
+        }
+
+    </style>
+
 </head>
 
-<!--Contém o conteúdo da página HTML-->
 <body>
-    <h1>Gestão de Equipamentos</h1>
 
-    <hr />
+    <nav>
+        <h2>Gestão de Equipamentos</h2>
 
-    <a href="/">Página Inicial</a> /
+        <ul>
+            <li><a class="link-navegacao" href="/">Página Inicial</a></li>
 
-    <hr />
+            <li><a class="link-navegacao" href="/fabricantes/cadastrar">Cadastrar Fabricantes</a></li>
+            <li><a class="link-navegacao" href="/equipamentos/cadastrar">Cadastrar Equipamentos</a></li>
+            <li><a class="link-navegacao" href="/chamados/cadastrar">Cadastrar Chamados</a></li>
 
-    <h3>Fabricantes</h3>
+        </ul>
 
-    <ul>
-        <li><a href="/fabricantes/cadastrar">Cadastrar Novo Fabricante</a></li>
-        <li><a href="/fabricantes/visualizar">Visualizar Fabricantes</a></li>
-    </ul>
+    </nav>
 
-    <hr />
+    <header>
+        <h3>Pagina Inicial</h3>
 
-    <h3>Equipamentos</h3>
+    </header>
 
-    <ul>
-        <li><a href="/equipamentos/cadastrar">Cadastrar Novo Equipamento</a></li>
-        <li><a href="/equipamentos/visualizar">Visualizar Equipamentos</a></li>
-    </ul>
+    <main>
 
-    <hr />
+        <a href="/equipamentos/visualizar">
+            <div class="card">
+                <h3>Equipamentos</h3>
 
-    <h3>Chamados</h3>
+                <p>Gerencie os equipamentoas</p>
 
-    <ul>
-        <li><a href="/chamados/cadastrar">Cadastrar Novo Chamado</a></li>
-        <li><a href="/chamados/visualizar">Visualizar Chamados</a></li>
-    </ul>
+            </div>
+
+        </a>
+
+        <a href="fabricantes/visualizar">
+            <div class="card">
+                <h3>Fabricantes</h3>
+
+                <p>Gerencie os Fabricantes De Equipamentos</p>
+
+            </div>
+
+        </a>
+        <a href="Chamados/visualizar">
+            <div class="card">
+                <h3>Chamados</h3>
+
+                <p>Gerencie os Chamados</p>
+
+            </div>
+        </a>
+
+    </main>
 </body>
 </html>

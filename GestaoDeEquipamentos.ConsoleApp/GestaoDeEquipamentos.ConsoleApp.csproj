@@ -12,7 +12,6 @@
     <Content Remove="Views\ControladorChamado\Editar.cshtml" />
     <Content Remove="Views\ControladorChamado\Excluir.cshtml" />
     <Content Remove="Views\ControladorChamado\Visualizar.cshtml" />
-    <Content Remove="Views\Shared\PaginaInicial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -20,7 +19,6 @@
     <None Include="Views\ControladorChamado\Editar.cshtml" />
     <None Include="Views\ControladorChamado\Excluir.cshtml" />
     <None Include="Views\ControladorChamado\Visualizar.cshtml" />
-    <None Include="Views\Shared\PaginaInicial.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

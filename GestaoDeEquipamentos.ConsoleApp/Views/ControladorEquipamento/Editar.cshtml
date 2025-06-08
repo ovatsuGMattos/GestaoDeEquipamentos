@@ -1,58 +1,143 @@
-﻿@using GestaoDeEquipamentos.ConsoleApp.Models;
+﻿@using GestaoDeEquipamentos.ConsoleApp.Models
+@using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
 
-@model EditarEquipamentoViewModel;
+@model EditarEquipamentoViewModel
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Edição de Equipamento - Gestão de Equipamentos</title>
-</head>
+    <title>Edição de Equipamentos - Gestão De Equipamentos</title>
+    <style>
+        :root {
+            --fundo-principal: #1e1e1e;
+            --fundo-secundario: #2c2c2e;
+            --cor-borda: #3a3a3c;
+            --cor-texto: green;
+            --cor-texto-secundario: #ccc;
+        }
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
+        body {
+            margin: 0;
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto-secundario);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
 
-    <hr />
+        main {
+            background-color: var(--fundo-secundario);
+            padding: 30px 40px;
+            border-radius: 9px;
+            border: 1px solid var(--cor-borda);
+            max-width: 600px;
+            width: 100%;
+            box-sizing: border-box;
+        }
 
-    <a href="/">Página Inicial</a> /
-    <a href="/equipamentos/visualizar">Visualizar Equipamentos</a>
+        h1, h3 {
+            margin: 0 0 20px;
+            color: var(--cor-texto);
+            text-align: center;
+        }
 
-    <hr />
+        form label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--cor-texto);
+        }
 
-    <h3>Edição de Equipamento</h3>
+        form input[type="text"],
+        form input[type="date"],
+        form select {
+            width: 100%;
+            padding: 8px 10px;
+            margin-top: 5px;
+            background-color: var(--fundo-principal);
+            border: 1px solid var(--cor-borda);
+            border-radius: 5px;
+            color: var(--cor-texto-secundario);
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
 
-    <form action="/equipamentos/editar/@Model.Id" method="post">
-
-        <label for="Nome">Nome do Equipamento:</label>
-        <br />
-        <input type="text" name="Nome" id="Nome" value="@Model.Nome" />
-
-        <br />
-
-        <label for="PrecoAquisicao">Preço de Aquisição do Equipamento:</label>
-        <br />
-        <input type="text" name="PrecoAquisicao" id="PrecoAquisicao" value="@Model.PrecoAquisicao" />
-
-        <br />
-
-        <label for="DataFabricacao">Data de Fabricação do Equipamento:</label>
-        <br />
-        <input type="date" name="DataFabricacao" id="DataFabricacao" value="@Model.DataFabricacao.ToString("yyyy-MM-dd")" />
-
-        <br />
-
-        <label for="FabricanteId">Fabricante do Equipamento:</label>
-        <br />
-        <select name="FabricanteId" id="FabricanteId">
-            @foreach (var fabricante in Model.FabricantesDisponiveis)
-            {
-                <option value="@fabricante.Id" @(fabricante.Id == Model.FabricanteId ? "selected" : "")>@fabricante.Nome</option>
+            form input:focus,
+            form select:focus {
+                outline: none;
+                border-color: lawngreen;
+                box-shadow: 0 0 5px lawngreen;
             }
-        </select>
 
-        <hr />
+        hr {
+            border: none;
+            border-bottom: 1px solid var(--cor-borda);
+            margin: 25px 0;
+        }
 
-        <button type="submit">Gravar</button>
-    </form>
+        button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: var(--cor-texto);
+            color: var(--fundo-principal);
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+            button:hover {
+                background-color: lawngreen;
+                color: black;
+            }
+
+        @@media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            main {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Gestão de Equipamentos</h1>
+        <h3>Edição de Equipamentos</h3>
+        <form action="/equipamentos/editar/@Model.Id" method="post">
+            <label for="Nome">Nome do Equipamento</label>
+            <input type="text" name="Nome" id="Nome" value="@Model.Nome" />
+
+            <label for="PrecoAquisicao">Preço de Aquisição</label>
+            <input type="text" name="PrecoAquisicao" id="PrecoAquisicao" value="@Model.PrecoAquisicao" />
+
+            <label for="DataFabricacao">Data de Fabricação</label>
+            <input type="date" name="DataFabricacao" id="DataFabricacao"
+                   value="@Model.DataFabricacao.ToString("yyyy-MM-dd")" />
+
+            <label for="FabricanteId">Fabricante</label>
+            <select name="FabricanteId" id="FabricanteId">
+                @foreach (var fabricante in Model.FabricantesDisponiveis)
+                {
+                    <option value="@fabricante.Id" @(fabricante.Id == Model.FabricanteId ? "selected" : "")>
+                        @fabricante.Nome
+                    </option>
+                }
+            </select>
+
+            <hr />
+
+            <button type="submit">Gravar</button>
+        </form>
+    </main>
 </body>
 </html>

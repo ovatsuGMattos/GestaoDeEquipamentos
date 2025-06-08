@@ -1,34 +1,159 @@
-﻿@using GestaoDeEquipamentos.ConsoleApp.Models;
-
-@model VisualizarChamadosViewModel;
+﻿@using GestaoDeEquipamentos.ConsoleApp.Models
+@model VizualizarChamadosViewModel
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Visualização de Chamados - Gestão de Equipamentos</title>
-</head>
-
-<body>
-    <h1>Gestão de Equipamentos</h1>
-
-    <hr />
-
-    <a href="/">Página Inicial</a> /
-    <a href="/chamados/cadastrar">Cadastrar Novo Chamado</a> /
-
-    <hr />
-
-    <h3>Visualização de Chamados</h3>
-
-    <ul>
-        @foreach (var e in Model.Registros)
-        {
-            <li>
-                @e.ToString() / <a href="/chamados/editar/@e.Id">Editar</a> /
-                <a href="/chamados/excluir/@e.Id">Excluir</a>
-            </li>
+    <title>Visualização de Chamados - Gestão De Equipamentos</title>
+    <style>
+        :root {
+            --fundo-principal: #1e1e1e;
+            --fundo-secundario: #2c2c2e;
+            --cor-borda: #3a3a3c;
+            --cor-principal: green;
+            --cor-texto-secundario: #ccc;
         }
-    </ul>
+
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto-secundario);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+        }
+
+        main {
+            width: 100%;
+            max-width: 700px;
+        }
+
+        h1 {
+            color: var(--cor-principal);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        h3 {
+            color: var(--cor-principal);
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        hr {
+            border: 1px solid var(--cor-borda);
+            margin: 20px 0;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+            nav a {
+                color: var(--cor-principal);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+
+                nav a:hover {
+                    color: lawngreen;
+                    text-decoration: underline;
+                }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        li {
+            background-color: var(--fundo-secundario);
+            border: 1px solid var(--cor-borda);
+            border-radius: 8px;
+            margin-bottom: 12px;
+            padding: 15px 20px;
+            color: var(--cor-texto-secundario);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+            li:hover {
+                background-color: #3a3a3c;
+            }
+
+            li span.actions a {
+                margin-left: 12px;
+                color: lawngreen;
+                font-weight: 600;
+                text-decoration: none;
+            }
+
+                li span.actions a:hover {
+                    text-decoration: underline;
+                }
+
+        @@media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            main {
+                max-width: 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 14px;
+            }
+
+                li span.actions {
+                    margin-top: 8px;
+                }
+
+                    li span.actions a {
+                        margin-left: 0;
+                        margin-right: 15px;
+                    }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Gestão de Equipamentos</h1>
+        <nav>
+            <a href="/">Página Inicial</a>
+            <a href="/chamados/cadastrar">Cadastrar Chamados</a>
+        </nav>
+        <hr />
+        <h3>Visualização de Chamados</h3>
+        <ul>
+            @foreach (var c in Model.Registros)
+            {
+                <li>
+                    <span>@c.ToString()</span>
+                    <span class="actions">
+                        <a href="/chamados/editar/@c.Id">Editar</a>
+                        <a href="/chamados/excluir/@c.Id">Excluir</a>
+                    </span>
+                </li>
+            }
+        </ul>
+    </main>
 </body>
 </html>

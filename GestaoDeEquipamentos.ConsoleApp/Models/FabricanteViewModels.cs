@@ -3,74 +3,94 @@ using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 
 namespace GestaoDeEquipamentos.ConsoleApp.Models;
 
+
+
 public abstract class FormularioFabricanteViewModel
 {
     public string Nome { get; set; }
+
     public string Email { get; set; }
     public string Telefone { get; set; }
 
 }
 
-public class CadastrarFabricanteViewModel : FormularioFabricanteViewModel
-{
-    public CadastrarFabricanteViewModel() { }
 
-    public CadastrarFabricanteViewModel(string nome, string email, string telefone) : this()
+public class CadastrarFabricantesViewModel : FormularioFabricanteViewModel
+{
+
+
+
+    public CadastrarFabricantesViewModel() { }
+
+
+    public CadastrarFabricantesViewModel(string nome, string email, string telefone) : this()
     {
+
         Nome = nome;
         Email = email;
         Telefone = telefone;
-    }
-}
 
-public class EditarFabricanteViewModel : FormularioFabricanteViewModel
+    }
+
+}
+public class EditarFabricantesViewModel : FormularioFabricanteViewModel
 {
+
     public int Id { get; set; }
 
-    public EditarFabricanteViewModel() { }
 
-    public EditarFabricanteViewModel(int id, string nome, string email, string telefone) : this()
+    public EditarFabricantesViewModel()
+    {
+    }
+    public EditarFabricantesViewModel(int id, string nome, string email, string telefone) : this()
     {
         Id = id;
         Nome = nome;
         Email = email;
         Telefone = telefone;
+
     }
+
+
 }
 
-public class ExcluirFabricanteViewModel
+public class ExcluirFabricantesViewModel
 {
+
     public int Id { get; set; }
     public string Nome { get; set; }
 
-    public ExcluirFabricanteViewModel() { }
-
-    public ExcluirFabricanteViewModel(int id, string nome) : this()
+    public ExcluirFabricantesViewModel(int id, string nome)
     {
         Id = id;
         Nome = nome;
+
+
     }
+
+
 }
 
-public class VisualizarFabricantesViewModel
+public class VizualizarFabricantesViewModel
 {
-    public List<DetalhesFabricanteViewModel> Registros { get; } = new List<DetalhesFabricanteViewModel>();
 
-    public VisualizarFabricantesViewModel(List<Fabricante> fabricantes)
+    public List<DetalhesFabricanteViewModel> registros { get; } = new List<DetalhesFabricanteViewModel>();
+    public VizualizarFabricantesViewModel(List<Fabricante> fabricantes)
     {
         foreach (Fabricante f in fabricantes)
         {
-            DetalhesFabricanteViewModel detalhesVM = f.ParaDetalhesVM();
-
-            Registros.Add(detalhesVM);
+            DetalhesFabricanteViewModel DetalhesVm = f.ParaDetalhesVm();
+            registros.Add(DetalhesVm);
         }
     }
-}
 
+
+}
 public class DetalhesFabricanteViewModel
 {
     public int Id { get; set; }
     public string Nome { get; set; }
+
     public string Email { get; set; }
     public string Telefone { get; set; }
 
@@ -84,6 +104,6 @@ public class DetalhesFabricanteViewModel
 
     public override string ToString()
     {
-        return $"Id: {Id}, Nome: {Nome}, Email: {Email}, Telefone: {Telefone}";
+        return $"id: {Id}, Nome: {Nome} , Email : {Email} , telefone{Telefone}";
     }
 }

@@ -1,40 +1,28 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Models;
 using GestaoDeEquipamentos.ConsoleApp.ModuloChamado;
 using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
+using System.Runtime.CompilerServices;
 
-namespace GestaoDeEquipamentos.ConsoleApp.Extensoes;
-
-public static class ChamadoExtensions
+namespace GestaoDeEquipamentos.ConsoleApp.Extensoes
 {
-    public static Chamado ParaEntidade(
-        this FormularioChamadoViewModel formularioVM,
-        List<Equipamento> equipamentos
-    )
+    public static class ChamadosExtensions
     {
-        Equipamento equipamentoSelecionado = null;
-
-        foreach (var f in equipamentos)
+        public static Chamado ParaEntidade(this FormularioChamadoViewModel formularioVm, List<Equipamento> equipamentos)
         {
-            if (f.Id == formularioVM.EquipamentoId)
-                equipamentoSelecionado = f;
+            Equipamento equipamentoSelecionado = null;
+
+            foreach (var f in equipamentos)
+            {
+                if (f.Id == formularioVm.EquipamentoId)
+                    equipamentoSelecionado = f;
+            }
+            return new Chamado(formularioVm.Titulo, formularioVm.Descricao, equipamentoSelecionado);
         }
 
-        return new Chamado(
-            formularioVM.Titulo,
-            formularioVM.Descricao,
-            equipamentoSelecionado
-        );
-    }
 
-    public static DetalhesChamadoViewModel ParaDetalhesVM(this Chamado chamado)
-    {
-        return new DetalhesChamadoViewModel(
-            chamado.Id,
-            chamado.Titulo,
-            chamado.Descricao,
-            chamado.DataAbertura,
-            chamado.TempoDecorrido,
-            chamado.Equipamento.Nome
-        );
+        public static DetalhesChamadoViewModel ParaDetahesVm(this Chamado chamado)
+        {
+            return new DetalhesChamadoViewModel(chamado.Id, chamado.Titulo, chamado.Descricao, chamado.DataAbertura, chamado.TempoDecorrido, chamado.Equipamento.Nome);
+        }
     }
 }

@@ -1,47 +1,127 @@
 ﻿@using GestaoDeEquipamentos.ConsoleApp.Models
 @using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
 
-@model EditarFabricanteViewModel;
+@model EditarFabricantesViewModel;
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Edição de Fabricante - Gestão de Equipamentos</title>
+    <title>Edição de Fabricantes - Gestão De Equipamentos</title>
+
+    <style>
+        :root {
+            --fundo-principal: #1e1e1e;
+            --fundo-secundario: #2c2c2e;
+            --cor-borda: #3a3a3c;
+            --cor-texto: green;
+            --cor-texto-secundario: #ccc;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto-secundario);
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        main {
+            background-color: var(--fundo-secundario);
+            padding: 30px 40px;
+            border-radius: 9px;
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+            border: 1px solid var(--cor-borda);
+        }
+
+        h1, h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            color: var(--cor-texto);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: var(--cor-texto-secundario);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--cor-borda);
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto-secundario);
+            margin-bottom: 18px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s ease;
+        }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            input[type="tel"]:focus {
+                outline: none;
+                border-color: lawngreen;
+                box-shadow: 0 0 5px lawngreen;
+            }
+
+        button {
+            background-color: green;
+            color: white;
+            padding: 10px 0;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: lawngreen;
+                color: black;
+            }
+        @@media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            main {
+                padding: 20px;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Gestão de Equipamentos</h1>
+    <main>
+        <h1>Gestão de Equipamentos</h1>
+        <h3>Edição de Fabricantes</h3>
 
-    <hr />
+        <form action="/fabricantes/editar/@Model.Id" method="post" novalidate>
+            <label for="Nome">Nome</label>
+            <input type="text" id="Nome" name="Nome" value="@Model.Nome" required minlength="3" maxlength="100" />
 
-    <a href="/">Página Inicial</a> /
-    <a href="/fabricantes/cadastrar">Cadastrar Novo Fabricante</a> /
-    <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
+            <label for="Email">Email</label>
+            <input type="email" id="Email" name="Email" value="@Model.Email" required />
 
-    <hr />
+            <label for="Telefone">Telefone</label>
+            <input type="tel" id="Telefone" name="Telefone" value="@Model.Telefone" required pattern="\+?\d{8,15}" title="Digite um telefone válido" />
 
-    <h3>Edição de Fabricante</h3>
-
-    <form action="/fabricantes/editar/@Model.Id" method="post">
-        <label>Nome do Fabricante:</label>
-        <br />
-        <input type="text" name="nome" value="@Model.Nome" />
-
-        <br />
-
-        <label>Email do Fabricante:</label>
-        <br />
-        <input type="text" name="email" value="@Model.Email" />
-
-        <br />
-
-        <label>Telefone do Fabricante: </label>
-        <br />
-        <input type="text" name="telefone" value="@Model.Telefone" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
+            <button type="submit">Confirmar</button>
+        </form>
+    </main>
 </body>
 </html>

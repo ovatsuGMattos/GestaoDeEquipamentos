@@ -1,33 +1,133 @@
 ﻿@using GestaoDeEquipamentos.ConsoleApp.Models
 @using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
 
-@model ExcluirFabricanteViewModel;
+@model ExcluirFabricantesViewModel;
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Exclusão de Fabricante - Gestão de Equipamentos</title>
+    <title>Exclusão de Fabricantes - Gestão De Equipamentos</title>
+
+    <style>
+        :root {
+            --fundo-principal: #1e1e1e;
+            --fundo-secundario: #2c2c2e;
+            --cor-borda: #3a3a3c;
+            --cor-texto: green;
+            --cor-texto-secundario: #ccc;
+        }
+
+        body {
+            margin: 0;
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto-secundario);
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        main {
+            background-color: var(--fundo-secundario);
+            padding: 30px 40px;
+            border-radius: 9px;
+            max-width: 500px;
+            width: 100%;
+            border: 1px solid var(--cor-borda);
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--cor-texto);
+            margin-bottom: 10px;
+        }
+
+        hr {
+            border: none;
+            border-bottom: 1px solid var(--cor-borda);
+            margin: 20px 0;
+        }
+
+        a {
+            color: var(--cor-texto);
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+            a:hover {
+                color: lawngreen;
+                text-decoration: underline;
+            }
+
+        p {
+            font-size: 18px;
+            margin: 30px 0;
+            color: var(--cor-texto-secundario);
+        }
+
+        button {
+            background-color: green;
+            color: white;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            margin-right: 20px;
+        }
+
+            button:hover {
+                background-color: lawngreen;
+                color: black;
+            }
+
+        form {
+            margin-top: 20px;
+        }
+
+        @@media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            main {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            a {
+                display: inline-block;
+                margin: 10px 5px 0 5px;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <h1>Gestão de Equipamentos</h1>
+    <main>
+        <h1>Gestão de Equipamentos</h1>
+        <hr />
+        <nav>
+            <a href="/">Página Inicial</a>
+            <a href="/fabricantes/cadastrar">Cadastrar Fabricantes</a>
+            <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
+        </nav>
+        <hr />
 
-    <hr />
+        <h3>Exclusão de Fabricantes</h3>
 
-    <a href="/">Página Inicial</a> /
-    <a href="/fabricantes/cadastrar">Cadastrar Novo Fabricante</a> /
-    <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
+        <p>Você tem certeza que deseja excluir o registro <strong>@Model.Nome</strong>?</p>
 
-    <hr />
-
-    <h3>Exclusão de Fabricante</h3>
-
-    <p>Você tem certeza que deseja excluir o registro "@Model.Nome"?</p>
-
-    <form action="/fabricantes/excluir/@Model.Id" method="post">
-        <button type="submit">Confirmar</button>
-        <a href="/fabricantes/visualizar">Voltar</a>
-    </form>
+        <form action="/fabricantes/excluir/@Model.Id" method="post">
+            <button type="submit">Confirmar</button>
+            <a href="/fabricantes/visualizar">Voltar</a>
+        </form>
+    </main>
 </body>
 </html>

@@ -1,34 +1,167 @@
-﻿@using GestaoDeEquipamentos.ConsoleApp.Models;
-
-@model VisualizarEquipamentosViewModel;
+﻿@using GestaoDeEquipamentos.ConsoleApp.Models
+@model VizualizarEquipamentoViewModels
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Visualização de Equipamentos - Gestão de Equipamentos</title>
-</head>
+    <title>Visualização de Equipamentos - Gestão De Equipamentos</title>
 
-<body>
-    <h1>Gestão de Equipamentos</h1>
-
-    <hr />
-
-    <a href="/">Página Inicial</a> /
-    <a href="/equipamentos/cadastrar">Cadastrar Novo Equipamento</a> /
-
-    <hr />
-
-    <h3>Visualização de Equipamentos</h3>
-
-    <ul>
-        @foreach (var e in Model.Registros)
-        {
-            <li>
-                @e.ToString() / <a href="/equipamentos/editar/@e.Id">Editar</a> /
-                <a href="/equipamentos/excluir/@e.Id">Excluir</a>
-            </li>
+    <style>
+        :root {
+            --fundo-principal: #1e1e1e;
+            --fundo-secundario: #2c2c2e;
+            --cor-borda: #3a3a3c;
+            --cor-texto: green;
+            --cor-texto-secundario: #ccc;
         }
-    </ul>
+
+        body {
+            margin: 0;
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto-secundario);
+            font-family: 'Segoe UI', sans-serif;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        main {
+            background-color: var(--fundo-secundario);
+            padding: 30px 40px;
+            border-radius: 9px;
+            max-width: 700px;
+            width: 100%;
+            border: 1px solid var(--cor-borda);
+            box-sizing: border-box;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 20px;
+        }
+
+            nav a {
+                color: var(--cor-texto);
+                text-decoration: none;
+                font-weight: 500;
+                font-size: 18px;
+                padding: 8px 12px;
+            }
+
+                nav a:hover {
+                    color: lawngreen;
+                    text-decoration: underline;
+                }
+
+        h1 {
+            color: var(--cor-texto);
+            margin-bottom: 0;
+            text-align: center;
+        }
+
+        header h3 {
+            color: var(--cor-texto);
+            margin-top: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .card {
+            background-color: var(--fundo-principal);
+            border: 1px solid var(--cor-borda);
+            border-radius: 9px;
+            padding: 20px;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        li {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--cor-borda);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 16px;
+            color: var(--cor-texto-secundario);
+        }
+
+            li:last-child {
+                border-bottom: none;
+            }
+
+            li a {
+                color: lawngreen;
+                text-decoration: none;
+                margin-left: 12px;
+                font-weight: 600;
+            }
+
+                li a:hover {
+                    text-decoration: underline;
+                }
+
+        @@media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            main {
+                padding: 20px;
+                max-width: 100%;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            li {
+                flex-direction: column;
+                align-items: flex-start;
+                font-size: 14px;
+            }
+
+                li a {
+                    margin-left: 0;
+                    margin-top: 8px;
+                }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <h1>Gestão de Equipamentos</h1>
+
+        <nav>
+            <a href="/">Página Inicial</a>
+            <a href="/equipamentos/visualizar">Visualizar Equipamentos</a>
+        </nav>
+
+        <header>
+            <h3>Visualização de Equipamentos</h3>
+        </header>
+
+        <div class="card">
+            <ul>
+                @foreach (var e in Model.registros)
+                {
+                    <li>
+                        <span>@e.ToString()</span>
+                        <span>
+                            <a href="/equipamentos/editar/@e.Id">Editar</a>
+                            <a href="/equipamentos/excluir/@e.Id">Excluir</a>
+                        </span>
+                    </li>
+                }
+            </ul>
+        </div>
+    </main>
 </body>
 </html>

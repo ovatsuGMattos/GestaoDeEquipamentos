@@ -1,120 +1,113 @@
 ﻿using GestaoDeEquipamentos.ConsoleApp.Compartilhado;
 using GestaoDeEquipamentos.ConsoleApp.Extensoes;
 using GestaoDeEquipamentos.ConsoleApp.Models;
-using GestaoDeEquipamentos.ConsoleApp.ModuloEquipamento;
 using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante;
 using Microsoft.AspNetCore.Mvc;
 using System.Text;
 
-namespace GestaoDeEquipamentos.ConsoleApp.Controllers;
 
-[Route("fabricantes")]
-public class ControladorFabricante : Controller
+namespace GestaoDeEquipamentos.ConsoleApp.Controllers
 {
-    [HttpGet("cadastrar")]
-    public IActionResult ExibirFormularioCadastroFabricante()
+    [Route("fabricantes")]
+
+    public class ControladorFabricante : Controller
     {
-        CadastrarFabricanteViewModel cadastrarVM = new CadastrarFabricanteViewModel();
+        [HttpGet("cadastrar")]
+        public IActionResult ExibirFormularioDeCadastroFabricantes()
+        {
+            CadastrarFabricantesViewModel cadastrarvm = new CadastrarFabricantesViewModel();
 
-        return View("Cadastrar", cadastrarVM);
-    }
+            return View("cadastrar", cadastrarvm);
+        }
+        [HttpPost("cadastrar")]
+        public IActionResult CadastrarFabricante(CadastrarFabricantesViewModel CadastrarVM)
 
-    [HttpPost("cadastrar")]
-    public IActionResult CadastrarFabricante(CadastrarFabricanteViewModel cadastrarVM)
-    {
-        ContextoDados contextoDados = new ContextoDados(true);
-        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+        {
+            ContextoDados contextodedados = new ContextoDados(true);
+            IRepositorioFabricante repositoriofabricante = new RepositorioFabricanteEmArquivo(contextodedados);
 
-        Fabricante novoFabricante = cadastrarVM.ParaEntidade();
+            Fabricante NovoFabricante = CadastrarVM.ParaEntidade();
 
-        repositorioFabricante.CadastrarRegistro(novoFabricante);
+            repositoriofabricante.CadastrarRegistro(NovoFabricante);
 
-        NotificacaoViewModel notificacaoVM = new NotificacaoViewModel(
-            "Fabricante Cadastrado!",
-            $"O registro \"{novoFabricante.Nome}\" foi cadastrado com sucesso!"
-        );
+            ViewBag.Mensagem = ($"O registro \"{NovoFabricante.Nome} \" foi registrado com sucesso");
 
-        return View("Notificacao", notificacaoVM);
-    }
+            return View("notificacao");
+        }
 
-    [HttpGet("editar/{id:int}")]
-    public IActionResult ExibirFormularioEdicaoFabricante([FromRoute] int id)
-    {
-        ContextoDados contextoDados = new ContextoDados(true);
-        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
 
-        Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarRegistroPorId(id);
+        [HttpGet("editar/{id:int}")]
 
-        EditarFabricanteViewModel editarVM = new EditarFabricanteViewModel(
-            id,
-            fabricanteSelecionado.Nome,
-            fabricanteSelecionado.Email,
-            fabricanteSelecionado.Telefone
-        );
+        public IActionResult Editar([FromRoute] int id)
+        {
+            ContextoDados contextodedados = new ContextoDados(true);
+            IRepositorioFabricante repositoriofabricante = new RepositorioFabricanteEmArquivo(contextodedados);
 
-        return View("Editar", editarVM);
-    }
+            Fabricante fabricanteSelecionado = repositoriofabricante.SelecionarRegistroPorId(id);
 
-    [HttpPost("editar/{id:int}")]
-    public IActionResult EditarFabricante([FromRoute] int id, EditarFabricanteViewModel editarVM)
-    {
-        ContextoDados contextoDados = new ContextoDados(true);
-        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+            EditarFabricantesViewModel EditarVm = new EditarFabricantesViewModel(id, fabricanteSelecionado.Nome, fabricanteSelecionado.Email, fabricanteSelecionado.Telefone);
 
-        Fabricante fabricanteEditado = editarVM.ParaEntidade();
+            return View(EditarVm);
+        }
 
-        repositorioFabricante.EditarRegistro(id, fabricanteEditado);
 
-        NotificacaoViewModel notificacaoVM = new NotificacaoViewModel(
-            "Fabricante Editado!",
-            $"O registro \"{fabricanteEditado.Nome}\" foi editado com sucesso!"
-        );
+        [HttpPost("editar/{id:int}")]
+        public IActionResult Editar([FromRoute] int id, EditarFabricantesViewModel EditarVm)
+        {
 
-        return View("Notificacao", notificacaoVM);
-    }
+            ContextoDados contextodedados = new ContextoDados(true);
+            IRepositorioFabricante repositoriofabricante = new RepositorioFabricanteEmArquivo(contextodedados);
 
-    [HttpGet("excluir/{id:int}")]
-    public IActionResult ExibirFormularioExclusaoFabricante([FromRoute] int id)
-    {
-        ContextoDados contextoDados = new ContextoDados(true);
-        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+            Fabricante fabricanteatualizado = new Fabricante(EditarVm.Nome, EditarVm.Email, EditarVm.Telefone);
 
-        Fabricante fabricanteSelecionado = repositorioFabricante.SelecionarRegistroPorId(id);
+            repositoriofabricante.EditarRegistro(id, fabricanteatualizado);
 
-        ExcluirFabricanteViewModel excluirVM = new ExcluirFabricanteViewModel(
-            fabricanteSelecionado.Id,
-            fabricanteSelecionado.Nome
-        );
+            ViewBag.Mensagem = ($"O registro \"{EditarVm.Nome}\" foi editado com sucesso");
 
-        return View("Excluir", excluirVM);
-    }
+            return View("Notificacao");
+        }
 
-    [HttpPost("excluir/{id:int}")]
-    public IActionResult ExcluirFabricante([FromRoute] int id)
-    {
-        ContextoDados contextoDados = new ContextoDados(true);
-        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+        [HttpGet("excluir/{id:int}")]
+        public IActionResult ExibirFormularioDeExclusaoFabricantes(int id)
+        {
+            ContextoDados contextodedados = new ContextoDados(true);
+            IRepositorioFabricante repositoriofabricante = new RepositorioFabricanteEmArquivo(contextodedados);
 
-        repositorioFabricante.ExcluirRegistro(id);
+            Fabricante fabricanteselecionado = repositoriofabricante.SelecionarRegistroPorId(id);
 
-        NotificacaoViewModel notificacaoVM = new NotificacaoViewModel(
-            "Fabricante Excluído!",
-            "O registro foi excluído com sucesso!"
-        );
+            ExcluirFabricantesViewModel excluirVm = new ExcluirFabricantesViewModel(fabricanteselecionado.Id, fabricanteselecionado.Nome);
 
-        return View("Notificacao", notificacaoVM);
-    }
+            return View("Excluir", excluirVm);
+        }
 
-    [HttpGet("visualizar")]
-    public IActionResult VisualizarFabricantes()
-    {
-        ContextoDados contextoDados = new ContextoDados(true);
-        IRepositorioFabricante repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
+        [HttpPost("excluir/{id:int}")]
+        public IActionResult ExcluirFabricante([FromRoute] int id)
+        {
+            ContextoDados contextodedados = new ContextoDados(true);
+            IRepositorioFabricante repositoriofabricante = new RepositorioFabricanteEmArquivo(contextodedados);
 
-        List<Fabricante> fabricantes = repositorioFabricante.SelecionarRegistros();
+            repositoriofabricante.ExcluirRegistro(id);
 
-        VisualizarFabricantesViewModel visualizarVM = new VisualizarFabricantesViewModel(fabricantes);
+            ViewBag.Mensagem = ($"O registro foi Excluido com sucesso");
 
-        return View("Visualizar", visualizarVM);
+            return View("Notificacao");
+
+        }
+
+        [HttpGet("visualizar")]
+        public IActionResult vizualizarFabricantes()
+        {
+            ContextoDados contextodedados = new ContextoDados(true);
+
+            IRepositorioFabricante repositoriofabricante = new RepositorioFabricanteEmArquivo(contextodedados);
+
+            List<Fabricante> fabricantes = repositoriofabricante.SelecionarRegistros();
+
+            VizualizarFabricantesViewModel viewModel = new VizualizarFabricantesViewModel(fabricantes);
+
+            return View("Visualizar", viewModel);
+        }
+
+
     }
 }

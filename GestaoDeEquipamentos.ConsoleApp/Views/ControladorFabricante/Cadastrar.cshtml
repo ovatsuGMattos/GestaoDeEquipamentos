@@ -1,45 +1,147 @@
 ﻿@using GestaoDeEquipamentos.ConsoleApp.Models
+@using GestaoDeEquipamentos.ConsoleApp.ModuloFabricante
+@using static GestaoDeEquipamentos.ConsoleApp.Models.EditarFabricantesViewModel
 
-@model CadastrarFabricanteViewModel;
+@model CadastrarFabricantesViewModel;
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
     <meta charset="utf-8" />
-    <title>Cadastro de Fabricante - Gestão de Equipamentos</title>
+    <title>Cadastro de Fabricantes - Gestão De Equipamentos</title>
+    <style>
+        :root {
+            --fundo-principal: #1e1e1e;
+            --fundo-secundario: #2c2c2e;
+            --cor-texto: #d1d1d1;
+            --cor-detalhe: lawngreen;
+            --cor-borda: #3a3a3c;
+            --cor-erro: #e55353;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto);
+            display: flex;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        main {
+            background-color: var(--fundo-secundario);
+            padding: 30px 40px;
+            border-radius: 10px;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+        }
+
+        h1, h3 {
+            margin-bottom: 20px;
+            color: var(--cor-detalhe);
+            text-align: center;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"] {
+            width: 100%;
+            padding: 8px 10px;
+            border-radius: 6px;
+            border: 1px solid var(--cor-borda);
+            background-color: var(--fundo-principal);
+            color: var(--cor-texto);
+            margin-bottom: 18px;
+            font-size: 14px;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+            input[type="text"]:focus,
+            input[type="email"]:focus,
+            input[type="tel"]:focus {
+                outline: none;
+                border-color: var(--cor-detalhe);
+                box-shadow: 0 0 5px var(--cor-detalhe);
+            }
+
+        button {
+            background-color: var(--cor-detalhe);
+            border: none;
+            color: black;
+            font-weight: 700;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+            button:hover {
+                background-color: lawngreen;
+                color: #111;
+            }
+
+        /* Mensagens de validação */
+        input:invalid {
+            border-color: var(--cor-erro);
+        }
+
+            input:invalid:focus {
+                box-shadow: 0 0 5px var(--cor-erro);
+            }
+
+        /* Link para voltar à página inicial (opcional) */
+        .link-voltar {
+            display: block;
+            text-align: center;
+            margin-top: 15px;
+            color: var(--cor-detalhe);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+            .link-voltar:hover {
+                text-decoration: underline;
+            }
+
+        @@media (max-width: 480px) {
+            main {
+                padding: 20px;
+                max-width: 100%;
+            }
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Gestão de Equipamentos</h1>
+    <main>
+        <h1>Gestão de Equipamentos</h1>
+        <h3>Cadastro de Fabricantes</h3>
 
-    <hr />
+        <form action="/fabricantes/cadastrar" method="post" novalidate>
+            <label for="Nome">Nome <span style="color: var(--cor-erro)">*</span></label>
+            <input type="text" id="Nome" name="Nome" required minlength="3" maxlength="100" placeholder="Digite o nome do fabricante" />
 
-    <a href="/">Página Inicial</a> /
-    <a href="/fabricantes/visualizar">Visualizar Fabricantes</a>
+            <label for="Email">Email <span style="color: var(--cor-erro)">*</span></label>
+            <input type="email" id="Email" name="Email" required placeholder="exemplo@dominio.com" />
 
-    <hr />
+            <label for="Telefone">Telefone <span style="color: var(--cor-erro)">*</span></label>
+            <input type="tel" id="Telefone" name="Telefone" required pattern="\+?\d{8,15}" placeholder="+5511999999999" title="Digite um telefone válido com 8 a 15 dígitos, opcional + no início" />
 
-    <h3>Cadastro de Fabricante</h3>
+            <button type="submit">Gravar</button>
+        </form>
 
-    <form action="/fabricantes/cadastrar" method="post">
-        <label>Nome do Fabricante:</label>
-        <br />
-        <input type="text" name="nome" />
-
-        <br />
-
-        <label>Email do Fabricante:</label>
-        <br />
-        <input type="text" name="email" />
-
-        <br />
-
-        <label>Telefone do Fabricante:</label>
-        <br />
-        <input type="text" name="telefone" />
-        <hr />
-
-        <button type="submit">Gravar</button>
-    </form>
+        <a href="/" class="link-voltar">Voltar à Página Inicial</a>
+    </main>
 </body>
 </html>
