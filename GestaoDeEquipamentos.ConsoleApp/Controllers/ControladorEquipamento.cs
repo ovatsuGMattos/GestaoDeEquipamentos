@@ -21,7 +21,6 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             repositorioFabricante = new RepositorioFabricanteEmArquivo(contextoDados);
         }
 
-        // ---------- CADASTRAR ----------
         [HttpGet("cadastrar")]
         public IActionResult Cadastrar()
         {
@@ -42,8 +41,6 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             return View("Notificacao");
         }
 
-        // ---------- EDITAR ----------
-        // GET => exibe o formulário preco­preenchido
         [HttpGet("editar/{id:int}")]
         public IActionResult Editar([FromRoute] int id)
         {
@@ -65,7 +62,6 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             return View(editarVm);
         }
 
-        // POST => grava as alterações
         [HttpPost("editar/{id:int}")]
         public IActionResult Editar([FromRoute] int id, EditarEquipamentoViewModel editarVm)
         {
@@ -76,7 +72,7 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             var fabricantes = repositorioFabricante.SelecionarRegistros();
             var equipamentoEditado = editarVm.ParaEntidade(fabricantes);
 
-            // Atualiza ligação de fabricante, se mudou
+           
             if (equipamentoEditado.Fabricante.Id != equipamentoOriginal.Fabricante.Id)
             {
                 equipamentoOriginal.Fabricante.RemoverEquipamento(equipamentoOriginal);
@@ -89,8 +85,6 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             return View("Notificacao");
         }
 
-        // ---------- EXCLUIR ----------
-        // GET => confirma exclusão
         [HttpGet("excluir/{id:int}")]
         public IActionResult Excluir([FromRoute] int id)
         {
@@ -102,7 +96,6 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             return View(excluirVm);
         }
 
-        // POST => exclui de fato
         [HttpPost("excluir/{id:int}")]
         public IActionResult ExcluirConfirmado([FromRoute] int id)
         {
@@ -111,7 +104,6 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
             return View("Notificacao");
         }
 
-        // ---------- VISUALIZAR ----------
         [HttpGet("visualizar")]
         public IActionResult Visualizar()
         {

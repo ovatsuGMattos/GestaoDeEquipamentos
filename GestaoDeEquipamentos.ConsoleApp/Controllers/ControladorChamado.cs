@@ -9,12 +9,12 @@ namespace GestaoDeEquipamentos.ConsoleApp.Controllers
 {
 
     [Route("chamados")]
-    public class ControladorChamado : Controller
+    public class ControladorChamadoController : Controller
     {
         private ContextoDados contextoDados;
         private IRepositorioChamado repositorioChamado;
         private IRepositorioEquipamento repositorioEquipamento;
-        public ControladorChamado()
+        public ControladorChamadoController()
         {
             contextoDados = new ContextoDados(true);
             repositorioChamado = new RepositorioChamadoEmArquivo(contextoDados);
